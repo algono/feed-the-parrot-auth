@@ -1,5 +1,5 @@
 {
-  "name": "al-loro-auth",
+  "name": "feed-the-parrot-auth",
   "version": "1.0.0",
   "description": "Simple Auth System for the Al Loro Alexa Skill",
   "main": "index.js",

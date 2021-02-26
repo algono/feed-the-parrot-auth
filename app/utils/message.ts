@@ -1,7 +1,9 @@
-import { ResponseVO } from '../model/vo/ResponseVo';
-
 enum StatusCode {
   success = 200,
+}
+export class Response {
+  statusCode: number;
+  body: string;
 }
 
 class Result {
@@ -33,7 +35,7 @@ class Result {
 }
 
 export class MessageUtil {
-  static success(data: object): ResponseVO {
+  static success<T extends object>(data: T): Response {
     const result = new Result(StatusCode.success, 0, 'success', data);
 
     return result.bodyToString();

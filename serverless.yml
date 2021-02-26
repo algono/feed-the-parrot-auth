@@ -1,6 +1,6 @@
 org: algono
-app: al-loro-auth
-service: al-loro-auth
+app: feed-the-parrot-auth
+service: feed-the-parrot-auth
 
 provider:
   name: aws
@@ -20,34 +20,9 @@ package:
     - config/.env.dev
 
 functions:
-  create:
-    handler: app/handler.create
+  login:
+    handler: app/handler.login
     events:
       - http:
-          path: books
-          method: post
-  update:
-    handler: app/handler.update
-    events:
-      - http:
-          path: books/{id}
-          method: put
-  find:
-    handler: app/handler.find
-    events:
-      - http:
-          path: books
+          path: login/{id}
           method: get
-  findOne:
-    handler: app/handler.findOne
-    events:
-      - http:
-          path: books/{id}
-          method: get
-
-  deleteOne:
-    handler: app/handler.deleteOne
-    events:
-      - http:
-          path: books/{id}
-          method: delete
