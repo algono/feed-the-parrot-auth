@@ -13,6 +13,7 @@ interface LoginEvent {
 }
 
 interface AuthCodeDB {
+  id: string;
   code: string;
   expirationDate: number;
 }
@@ -62,7 +63,7 @@ export const login: Handler<LoginEvent, Response> = async (event) => {
   if (now < expirationDate) {
     if (authCode === codeData.code) {
       console.log("Good code");
-      const token = await admin.auth().createCustomToken(codeData.ID);
+      const token = await admin.auth().createCustomToken(codeData.id);
       await Dynamo.delete(authCode, tableName);
       return MessageUtil.success<LoginResult>({ token });
     } else {
