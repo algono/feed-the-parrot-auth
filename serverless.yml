@@ -69,5 +69,5 @@ resources:
               ProjectionType: ALL
 
         TimeToLiveSpecification:
-          - AttributeName: "expirationDate"
+          - AttributeName: expirationDate
             Enabled: true
