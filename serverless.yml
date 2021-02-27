@@ -15,7 +15,7 @@ provider:
     - Effect: Allow
       Action:
         - dynamodb:*
-      Resource: ${self:custom.tableName}
+      Resource: "*"
   apiKeys:
     - FeedTheParrotAppApiKey
   usagePlan:
