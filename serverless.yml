@@ -22,8 +22,8 @@ provider:
     quota:
       limit: 1000
       period: MONTH
-    throttle:
-      rateLimit: 1
+    #throttle:
+    #  rateLimit: 5
 
 plugins:
   - serverless-plugin-typescript
