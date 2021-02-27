@@ -40,7 +40,7 @@ export const login: Handler = async (event: { pathParameters: LoginParams }) => 
     queryValue: authCode,
   });
 
-  if (!codeQuery) {
+  if (!codeQuery || codeQuery.length < 1) {
     return response(401, "The code was not valid.");
   }
 

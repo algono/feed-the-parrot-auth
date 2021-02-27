@@ -33,7 +33,7 @@ export default class Dynamo {
       .delete({
         TableName: tableName,
         Key: {
-          ID: id,
+          id,
         },
       })
       .promise();
