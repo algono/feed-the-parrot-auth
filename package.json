@@ -3,7 +3,7 @@
   "author": "algono",
   "version": "1.0.0",
   "description": "Simple Auth System for the Al Loro Alexa Skill",
-  "main": "index.js",
+  "main": "handler.ts",
   "scripts": {
     "lint": "tslint -p tsconfig.json -c tslint.json",
     "local": "serverless offline",
