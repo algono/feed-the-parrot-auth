@@ -30,15 +30,12 @@ export default class Dynamo {
 
   static async delete(id: string, tableName: string) {
     return documentClient
-      .delete(
-        {
-          TableName: tableName,
-          Key: {
-            id,
-          },
+      .delete({
+        TableName: tableName,
+        Key: {
+          id,
         },
-        () => {}
-      )
+      })
       .promise();
   }
 }

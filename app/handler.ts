@@ -61,7 +61,7 @@ export const login: Handler = async (event: { pathParameters: LoginParams }) => 
     if (authCode === codeData.code) {
       console.log("Good code");
       const token = await firebase.createCustomToken(codeData.id);
-      await Dynamo.delete(authCode, tableName);
+      await Dynamo.delete(codeData.id, tableName);
       return response(200, token);
     } else {
       console.log(
@@ -71,7 +71,7 @@ export const login: Handler = async (event: { pathParameters: LoginParams }) => 
     }
   } else {
     console.log("Code has expired");
-    await Dynamo.delete(authCode, tableName);
+    await Dynamo.delete(codeData.id, tableName);
     return response(416, "The code has expired");
   }
 };
