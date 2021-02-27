@@ -55,13 +55,16 @@ export const login: Handler = async (event: { pathParameters: LoginParams }) => 
 
   const expirationDateTime: number = codeData.expirationDate;
 
-  console.log("Expiration date: ", JSON.stringify(expirationDateTime));
+  console.log("Expiration date (seconds): ", JSON.stringify(expirationDateTime));
 
   const now = new Date();
 
   console.log("Current date: ", JSON.stringify(now));
 
-  const expirationDate = new Date(expirationDateTime);
+  // expirationDateTime is in seconds, we need it in millis for the Date constructor
+  const expirationDate = new Date(expirationDateTime * 1000);
+
+  console.log("Expiration date: ", JSON.stringify(expirationDate));
 
   // If the code has not expired yet, continue
   if (now < expirationDate) {
