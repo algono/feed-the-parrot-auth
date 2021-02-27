@@ -1,17 +1,7 @@
 import { Handler } from "aws-lambda";
 import { response } from "./utils/ApiResponses";
 import Dynamo from "./utils/Dynamo";
-
-// The Firebase Admin SDK to generate the auth JWT token
-import admin = require("firebase-admin");
-
-const firebaseCredentials: admin.ServiceAccount = JSON.parse(
-  process.env.FIREBASE_CREDENTIALS
-);
-
-admin.initializeApp({
-  credential: admin.credential.cert(firebaseCredentials),
-});
+import * as firebase from "./utils/Firebase"
 
 interface LoginParams {
   authCode: string;
@@ -70,7 +60,7 @@ export const login: Handler = async (event: { pathParameters: LoginParams }) => 
   if (now < expirationDate) {
     if (authCode === codeData.code) {
       console.log("Good code");
-      const token = await admin.auth().createCustomToken(codeData.id);
+      const token = await firebase.createCustomToken(codeData.id);
       await Dynamo.delete(authCode, tableName);
       return response(200, token);
     } else {
