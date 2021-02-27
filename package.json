@@ -1,5 +1,6 @@
 {
   "name": "feed-the-parrot-auth",
+  "author": "algono",
   "version": "1.0.0",
   "description": "Simple Auth System for the Al Loro Alexa Skill",
   "main": "index.js",
@@ -8,15 +9,12 @@
     "local": "serverless offline",
     "deploy": "serverless deploy"
   },
-  "pre-commit": [
-    "lint"
-  ],
   "dependencies": {
-    "dotenv": "^8.2.0"
+    "aws-sdk": "^2.853.0",
+    "firebase-admin": "^9.5.0"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.51",
-    "@types/dotenv-safe": "^8.1.0",
     "serverless-offline": "^5.12.1",
     "serverless-plugin-typescript": "^1.1.9",
     "ts-node": "^8.9.1",
@@ -24,10 +22,5 @@
     "tslint-config-airbnb": "^5.11.2",
     "typescript": "^3.8.3"
   },
-  "repository": {},
-  "keywords": [],
-  "author": "algono",
-  "license": "ISC",
-  "bugs": {},
-  "homepage": ""
+  "private": true
 }

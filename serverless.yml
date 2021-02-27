@@ -5,24 +5,69 @@ service: feed-the-parrot-auth
 provider:
   name: aws
   runtime: nodejs12.x
+  region: eu-west-1
   environment:
-    NODE_ENV: dev
+    tableName: ${self:custom.tableName}
+    codeAttributeName: ${self:custom.codeAttributeName}
+    codeIndex: ${self:custom.codeIndex}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:*
+      Resource: ${self:custom.tableName}
+  apiKeys:
+    - FeedTheParrotAppApiKey
+  usagePlan:
+    quota:
+      limit: 1000
+      period: MONTH
+    throttle:
+      rateLimit: 1
 
 plugins:
-  - serverless-plugin-typescript 
+  - serverless-plugin-typescript
   - serverless-offline
 
-package:
-  exclude:
-    - config/.env.stg
-    - config/.env.pro
-  include:
-    - config/.env.dev
+custom:
+  tableName: feed-the-parrot-auth
+  codeAttributeName: code
+  codeIndex: code-index
 
 functions:
   login:
     handler: app/handler.login
     events:
       - http:
-          path: login/{id}
+          path: login/{authCode}
           method: get
+          private: true
+
+resources:
+  Resources:
+    MyDynamoDbTable:
+      Type: AWS::DynamoDB:Table
+      Properties:
+        TableName: ${self:custom.tableName}
+        AttributeDefinitions:
+          - AttributeName: ID
+            AttributeType: S
+          - AttributeName: ${self:custom.codeAttributeName}
+            AttributeType: S
+          - AttributeName: expirationDate
+            AttributeType: N
+        KeySchema:
+          - AttributeName: ID
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+
+        GlobalSecondaryIndexes:
+          - IndexName: ${self:custom.codeIndex}
+            KeySchema:
+              - AttributeName: ${self:custom.codeAttributeName}
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+
+        TimeToLiveSpecification:
+          - AttributeName: "expirationDate"
+            Enabled: true
