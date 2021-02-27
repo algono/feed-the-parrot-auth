@@ -54,8 +54,6 @@ resources:
             AttributeType: S
           - AttributeName: ${self:custom.codeAttributeName}
             AttributeType: S
-          - AttributeName: expirationDate
-            AttributeType: N
         KeySchema:
           - AttributeName: ID
             KeyType: HASH
