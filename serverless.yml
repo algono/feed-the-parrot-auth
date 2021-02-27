@@ -10,6 +10,7 @@ provider:
     tableName: ${self:custom.tableName}
     codeAttributeName: ${self:custom.codeAttributeName}
     codeIndex: ${self:custom.codeIndex}
+    FIREBASE_CREDENTIALS: ${param:FIREBASE_CREDENTIALS}
   iamRoleStatements:
     - Effect: Allow
       Action:
